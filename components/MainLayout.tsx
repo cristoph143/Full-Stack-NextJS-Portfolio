@@ -2,8 +2,13 @@ import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { ReactNode } from "react";
 
-export default async function AuthButton() {
+interface MainLayoutProps {
+  children: ReactNode;
+}
+
+export default async function MainLayout({ children }: MainLayoutProps) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -20,11 +25,15 @@ export default async function AuthButton() {
     return redirect("/login");
   };
 
+  if (!user) {
+    return redirect("/login");
+  }
+
   return user ? (
     <div className="flex items-center gap-4">
       Hey, {user.email}!
       <form action={signOut}>
-        <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+        <button className="px-4 py-2 no-underline rounded-md bg-btn-background hover:bg-btn-background-hover">
           Logout
         </button>
       </form>
@@ -32,7 +41,7 @@ export default async function AuthButton() {
   ) : (
     <Link
       href="/login"
-      className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+      className="flex px-3 py-2 no-underline rounded-md bg-btn-background hover:bg-btn-background-hover"
     >
       Login
     </Link>
