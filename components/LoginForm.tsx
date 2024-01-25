@@ -62,6 +62,10 @@ export default async function LoginForm({
     return redirect("/login?message=Check email to continue sign in process");
   };
 
+  if (user) {
+    redirect("/admin");
+  }
+
   return (
     <div className="flex flex-col justify-center flex-1 w-full gap-2 px-8 sm:max-w-md">
       <Link
