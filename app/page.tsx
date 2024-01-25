@@ -24,7 +24,7 @@ export default async function Index() {
       <nav className="flex justify-center w-full h-16 border-b border-b-foreground/10">
         <div className="flex items-center justify-between w-full max-w-4xl p-3 text-sm"></div>
       </nav>
-
+      ss
       <div className="flex flex-col flex-1 max-w-4xl gap-20 px-3 opacity-0 animate-in">
         <Header />
         <main className="flex flex-col flex-1 gap-6">
@@ -32,7 +32,6 @@ export default async function Index() {
           {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
         </main>
       </div>
-
       <footer className="flex justify-center w-full p-8 text-xs text-center border-t border-t-foreground/10">
         <p>
           Powered by{" "}
