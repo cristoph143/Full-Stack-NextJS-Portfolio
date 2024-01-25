@@ -1,8 +1,13 @@
-export default function BlogsPage() {
+"use client";
+import BlogsPage from "@/components/blogs/BlogPage";
+import React from "react";
+
+const BlogPages: React.FC = () => {
   return (
-    <>
-      <h1>Blogs Page</h1>
-      <p>Hello</p>
-    </>
+    <div>
+      <BlogsPage />
+    </div>
   );
-}
+};
+
+export default BlogPages;
