@@ -12,13 +12,15 @@
 # next.js
 /.next/
 /out/
-
+.env
+.history
 # production
 /build
 
 # misc
 .DS_Store
 *.pem
+/.history
 
 # debug
 npm-debug.log*
