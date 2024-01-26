@@ -1,4 +1,4 @@
-import MainLayout from "@/components/MainLayout";
+import MainLayout from "@/components/layout/MainLayout";
 import { ReactNode } from "react";
 
 interface AdminLayoutProps {

@@ -3,19 +3,19 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
-import SideNavigation from "./SideNavigation";
+import SideNavigation from "../SideNavigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import NavigationHeading from "./NavigationHeading";
+import NavigationHeading from "../NavigationHeading";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "@radix-ui/react-icons";
+import Main from "./home/main";
 interface MainLayoutProps {
   children: ReactNode;
 }
@@ -42,7 +42,7 @@ export default async function MainLayout({ children }: MainLayoutProps) {
   }
 
   return (
-    <main className="flex">
+    <Main>
       <SideNavigation />
       <section className="w-full">
         <header className="fixed right-0 z-10 p-3 bg-white border-b left-60">
@@ -100,8 +100,7 @@ export default async function MainLayout({ children }: MainLayoutProps) {
         <div className="absolute bottom-0 right-0 left-60 top-24 right-5">
           <div className="container">{children}</div>
         </div>
-        {/* <div className="w-1/2 max-w-6xl p-5 mt-20 ml-auto mr-auto"></div> */}
       </section>
-    </main>
+    </Main>
   );
 }
