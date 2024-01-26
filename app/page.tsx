@@ -1,10 +1,27 @@
-import Header from "@/components/Header";
+import Header from "@/components/layout/home/header";
+import Main from "@/components/layout/home/main";
+import Footer from "@/components/layout/home/footer";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
-import SignUpUserSteps from "@/components/SignUpUserSteps";
 import ConnectSupabaseSteps from "@/components/ConnectSupabaseSteps";
+import SignUpUserSteps from "@/components/SignUpUserSteps";
+const userLinks = [
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/admin/projects" },
+  { label: "Blogs", href: "/admin/blogs" },
+];
+const homeLinks = [
+  { label: "Home", href: "/" },
+  { label: "About Me", href: "/about-me" },
+  { label: "Contact Me", href: "/contact-me" },
+];
 export default async function Index() {
   const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const canInitSupabaseClient = () => {
     // This function is just for the interactive tutorial.
@@ -17,34 +34,17 @@ export default async function Index() {
     }
   };
 
+  const isAuthenticated = user;
+
   const isSupabaseConnected = canInitSupabaseClient();
 
   return (
     <div className="flex flex-col items-center flex-1 w-full gap-20">
-      <nav className="flex justify-center w-full h-16 border-b border-b-foreground/10">
-        <div className="flex items-center justify-between w-full max-w-4xl p-3 text-sm"></div>
-      </nav>
-      ss
-      <div className="flex flex-col flex-1 max-w-4xl gap-20 px-3 opacity-0 animate-in">
-        <Header />
-        <main className="flex flex-col flex-1 gap-6">
-          <h2 className="mb-4 text-4xl font-bold">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
-      </div>
-      <footer className="flex justify-center w-full p-8 text-xs text-center border-t border-t-foreground/10">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
+      <Header links={isAuthenticated ? userLinks : homeLinks} />
+      <Main>
+        {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
+      </Main>
+      <Footer />
     </div>
   );
 }
